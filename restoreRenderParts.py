@@ -20,8 +20,8 @@ bl_info = {
     "name": "Restore Render Parts",
     "description": "Restores the old render option of defining tiles by amount rather than pixels",
     "author": "Ray Mairlot",
-    "version": (1, 0),
-    "blender": (2, 72, 0),
+    "version": (1, 1),
+    "blender": (2, 77, 0),
     "location": "Properties Editor > Performance",
     "category": "Render"}
     
