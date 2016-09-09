@@ -30,16 +30,28 @@ import bpy
 
 
 def calculateTileX(self,context):
-    bpy.context.scene.render.tile_x  = bpy.context.scene.render.resolution_x / bpy.context.scene.x_parts
-    return None
+    
+    render = context.scene.render
+    
+    resolution = (render.resolution_x * render.resolution_percentage) / 100
+    
+    render.tile_x  = resolution / context.scene.x_parts
+    
+    
     
 def calculateTileY(self,context):
-    bpy.context.scene.render.tile_y  = bpy.context.scene.render.resolution_y / bpy.context.scene.y_parts
-    return None    
+    
+    render = context.scene.render
+    
+    resolution = (render.resolution_y * render.resolution_percentage) / 100
+    
+    render.tile_y  = resolution / context.scene.y_parts
    
+
     
 bpy.types.Scene.x_parts = bpy.props.IntProperty(name="x_parts", description="Define the amount of parts the width of the image will be divided into", default=1, min=1, update=calculateTileX)
 bpy.types.Scene.y_parts = bpy.props.IntProperty(name="y_parts", description="Define the amount of parts the height of the image will be divided into", default=1, min=1, update=calculateTileY)
+
 
 
 def restoreRenderParts(self, context):
@@ -50,14 +62,17 @@ def restoreRenderParts(self, context):
     row.prop(bpy.context.scene, "y_parts", text="Y") 
 
 
+
 def register():
     bpy.types.CyclesRender_PT_performance.append(restoreRenderParts)
     bpy.types.RENDER_PT_performance.append(restoreRenderParts)
 
 
+
 def unregister():
     bpy.types.CyclesRender_PT_performance.remove(restoreRenderParts)
     bpy.types.RENDER_PT_performance.remove(restoreRenderParts)
+
 
 if __name__ == "__main__":
     register()
